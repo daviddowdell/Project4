@@ -56,5 +56,10 @@ public class Driver
         mapData.parseFile();
         
         System.out.println(mapData.toString());
+        
+        MainFrame yep = new MainFrame();
     }
+    
+        
+    
 }

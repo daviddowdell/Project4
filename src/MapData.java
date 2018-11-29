@@ -36,8 +36,15 @@ public class MapData
     /** Label for temperature at 1.5m */
     private static final String TAIR = "TAIR";
     
+
     /** Label for solar radiation */
     private static final String SRAD = "SRAD";
+
+    /** Label for windspeed */
+    private static final String WSPD = "WSPD";
+    
+    /** Label for pressure */
+    private static final String PRES = "PRES";
     
     /** Label for station ID */
     private static final String STID = "STID";
@@ -108,9 +115,18 @@ public class MapData
             {
                 paramPositions.put(TA9M,i);
             }
+
             if (parts[i].equalsIgnoreCase(SRAD))
             {
                 paramPositions.put(SRAD, i);
+            }
+            if (parts[i].equalsIgnoreCase(WSPD))
+            {
+                paramPositions.put(WSPD, i);
+            }
+            if (parts[i].equalsIgnoreCase(PRES))
+            {
+                paramPositions.put(PRES, i);
             }
         }
     }
@@ -140,10 +156,14 @@ public class MapData
             ArrayList<Observation> sradList = new ArrayList<Observation>();
             ArrayList<Observation> tairList = new ArrayList<Observation>();
             ArrayList<Observation> ta9mList = new ArrayList<Observation>();
+            ArrayList<Observation> wspdList = new ArrayList<Observation>();
+            ArrayList<Observation> presList = new ArrayList<Observation>();
             int stP = paramPositions.get(STID);
             int srP = paramPositions.get(SRAD);
             int taP = paramPositions.get(TAIR);
             int t9P = paramPositions.get(TA9M);
+            int wsP = paramPositions.get(WSPD);
+            int prP = paramPositions.get(PRES);
             while (line != null)
             {
                 
@@ -151,6 +171,9 @@ public class MapData
                sradList.add(new Observation(Double.parseDouble(lineParts[srP]), lineParts[stP]));
                tairList.add(new Observation(Double.parseDouble(lineParts[taP]), lineParts[stP]));
                ta9mList.add(new Observation(Double.parseDouble(lineParts[t9P]), lineParts[stP]));
+               wspdList.add(new Observation(Double.parseDouble(lineParts[wsP]), lineParts[stP]));
+               presList.add(new Observation(Double.parseDouble(lineParts[prP]), lineParts[stP]));
+               
                 ++counter;
                 
                 line = br.readLine();
@@ -162,6 +185,8 @@ public class MapData
             dataCatalog.put(SRAD, sradList);
             dataCatalog.put(TAIR, tairList);
             dataCatalog.put(TA9M, ta9mList);
+            dataCatalog.put(WSPD, wspdList);
+            dataCatalog.put(PRES, presList);
                
            
     }
@@ -240,6 +265,8 @@ public class MapData
         calculateStatistics(dataCatalog.get(SRAD), SRAD);
         calculateStatistics(dataCatalog.get(TA9M), TA9M);
         calculateStatistics(dataCatalog.get(TAIR), TAIR);
+        calculateStatistics(dataCatalog.get(WSPD), WSPD);
+        calculateStatistics(dataCatalog.get(PRES), PRES);
         
     }
    
