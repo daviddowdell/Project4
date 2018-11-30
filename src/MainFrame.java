@@ -2,8 +2,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.io.File;
 
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -15,6 +17,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.border.TitledBorder;
 
 /**
  * This is the main, entire frame of the gui
@@ -28,8 +31,8 @@ public class MainFrame extends JFrame
      * Default serial ID
      */
     private static final long serialVersionUID = 1L;
-    /**The panel for the menu bar */
-    JPanel topMenu = new JPanel();
+    /**The panel for parameter and statistics selections */
+    JPanel leftPanel = new JPanel();
     /**
      * The panel for the Heading
      */
@@ -38,6 +41,8 @@ public class MainFrame extends JFrame
      * Panel for the left column of selectable data types
      */
     JPanel datatypes = new JPanel();
+    /**Title for the datatypes border*/
+    TitledBorder dtBorder = new TitledBorder("Parameter");
     
     /**
      * Panel for the second-from left column of statistic types
@@ -56,10 +61,16 @@ public class MainFrame extends JFrame
     JLabel columns = new JLabel();
     /** Header for the whole thing */
     JLabel mainHeader = new JLabel();
-    /** Text fields for station, parameter, statistics, value, reporting stations, and date */
+    /** Table for station, parameter, statistics, value, reporting stations, and date */
     JTable table;
     String[] tableHeaders = new String[] {"Station", "Parameter", "Statistics",
             "Value", "Reporting Stations", "Date"};
+    /** Selectable buttons for Parameter */
+    JCheckBox wspd = new JCheckBox("WSPD");
+    JCheckBox pres = new JCheckBox("PRES");
+    JCheckBox srad = new JCheckBox("SRAD");
+    JCheckBox ta9m = new JCheckBox("TA9M");
+    JCheckBox tair = new JCheckBox("TAIR");
     
     
     
@@ -127,6 +138,19 @@ public class MainFrame extends JFrame
         textBox.add(sp);
        
         add(textBox, BorderLayout.EAST);
+        
+        
+        //Set up the Parameter selection options
+        datatypes.setLayout(new BoxLayout(datatypes, BoxLayout.Y_AXIS));
+        datatypes.setBorder(dtBorder);
+        datatypes.add(tair);
+        datatypes.add(ta9m);
+        datatypes.add(srad);
+        datatypes.add(wspd);
+        datatypes.add(pres);
+        
+        //Set up the Statistic selection options
+        add(datatypes, BorderLayout.WEST);
         
      // Configuring of the frame
         setSize(800, 400);
