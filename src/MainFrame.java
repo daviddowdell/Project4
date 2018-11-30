@@ -12,6 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -48,6 +49,8 @@ public class MainFrame extends JFrame
      * Panel for the second-from left column of statistic types
      */
     JPanel statTypes = new JPanel();
+    /**Title for the statTypes border*/
+    TitledBorder stBorder = new TitledBorder("Statistics");
     
     /**
      * Panel for the text box
@@ -71,6 +74,11 @@ public class MainFrame extends JFrame
     JCheckBox srad = new JCheckBox("SRAD");
     JCheckBox ta9m = new JCheckBox("TA9M");
     JCheckBox tair = new JCheckBox("TAIR");
+    
+    /**RadioButtons for Statistics*/
+    JRadioButton max = new JRadioButton("MAXIMUM");
+    JRadioButton min = new JRadioButton("MINIMUM");
+    JRadioButton avg = new JRadioButton("AVERAGE");
     
     
     
@@ -148,9 +156,20 @@ public class MainFrame extends JFrame
         datatypes.add(srad);
         datatypes.add(wspd);
         datatypes.add(pres);
+        add(datatypes, BorderLayout.WEST);
         
         //Set up the Statistic selection options
-        add(datatypes, BorderLayout.WEST);
+        statTypes.setLayout(new BoxLayout(statTypes, BoxLayout.Y_AXIS));
+        statTypes.setBorder(stBorder);
+        stats.add(max);
+        stats.add(min);
+        stats.add(avg);
+        statTypes.add(min);
+        statTypes.add(avg);
+        statTypes.add(max);
+        add(statTypes, BorderLayout.CENTER);
+        
+        
         
      // Configuring of the frame
         setSize(800, 400);
