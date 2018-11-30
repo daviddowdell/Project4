@@ -1,12 +1,18 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.io.File;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JTextField;
+import javax.swing.JToolBar;
 
 /**
  * This is the main, entire frame of the gui
@@ -64,10 +70,26 @@ public class MainFrame extends JFrame
          */
         private static final long serialVersionUID = 1L;
         
+        JMenu fileMenu = new JMenu("File");
+        
+        JToolBar toolBar = new JToolBar(JToolBar.VERTICAL);
+        
         
         protected FileMenuBar()
         {
             super();
+            File dataFolder = new File("C:\\Users\\dtd12\\eclipse-workspace\\Project4\\data");
+            File[] datafiles = dataFolder.listFiles();
+            
+         
+            JMenuItem exit = new JMenuItem("Exit");
+            JMenuItem choose = new JMenuItem("Open Data File");
+        
+            fileMenu.add(choose);
+            fileMenu.add(exit);
+            
+            this.add(fileMenu);
+            
         }
         
     }
@@ -76,18 +98,23 @@ public class MainFrame extends JFrame
     
     public MainFrame()
     {
+        //First set up the border Layout:
         super("Mesonet");
         
         // The Setup Section
         mainHeader.setHorizontalAlignment(JTextField.CENTER);
   
-        topMenu.add(new FileMenuBar());
-        add(topMenu);
+        //topMenu.add(new FileMenuBar());
+       // add(topMenu, BorderLayout.NORTH);
+        this.setJMenuBar(new FileMenuBar());
         
+        //Set up for the header text
         mainHeader.setText("Mesonet-we don't set records, we record them!");
         topHeading.add(mainHeader);
-        topHeading.setBackground(Color.GRAY);
-        add(topHeading);
+        topHeading.setBackground(Color.LIGHT_GRAY);
+        add(topHeading, BorderLayout.NORTH);
+        
+        
      // Configuring of the frame
         setSize(400, 400);
         setVisible(true);
