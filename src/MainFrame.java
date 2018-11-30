@@ -11,6 +11,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 
@@ -54,15 +56,18 @@ public class MainFrame extends JFrame
     JLabel columns = new JLabel();
     /** Header for the whole thing */
     JLabel mainHeader = new JLabel();
-    /** Textbox for output */
-    JTextField output = new JTextField(5);
+    /** Text fields for station, parameter, statistics, value, reporting stations, and date */
+    JTable table;
+    String[] tableHeaders = new String[] {"Station", "Parameter", "Statistics",
+            "Value", "Reporting Stations", "Date"};
+    
     
     
     
     /**
      * Inner class for the menu bar
      */
-    protected class FileMenuBar extends JMenuBar
+    class FileMenuBar extends JMenuBar
     {
 
         /**
@@ -98,25 +103,33 @@ public class MainFrame extends JFrame
     
     public MainFrame()
     {
-        //First set up the border Layout:
+        
         super("Mesonet");
         
         // The Setup Section
-        mainHeader.setHorizontalAlignment(JTextField.CENTER);
-  
-        //topMenu.add(new FileMenuBar());
-       // add(topMenu, BorderLayout.NORTH);
+ 
+        //Set up file menu
         this.setJMenuBar(new FileMenuBar());
         
         //Set up for the header text
+        mainHeader.setHorizontalAlignment(JTextField.CENTER);
         mainHeader.setText("Mesonet-we don't set records, we record them!");
         topHeading.add(mainHeader);
         topHeading.setBackground(Color.LIGHT_GRAY);
         add(topHeading, BorderLayout.NORTH);
         
+        //Set up output text
+        String[][] outputData = {{"","","","","",""}};
+        table = new JTable(outputData, tableHeaders);
+        JScrollPane sp = new JScrollPane(table);
+        table.setShowGrid(false);
+        
+        textBox.add(sp);
+       
+        add(textBox, BorderLayout.EAST);
         
      // Configuring of the frame
-        setSize(400, 400);
+        setSize(800, 400);
         setVisible(true);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
