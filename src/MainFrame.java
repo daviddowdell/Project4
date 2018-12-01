@@ -119,13 +119,20 @@ public class MainFrame extends JFrame
             File[] datafiles = dataFolder.listFiles();
             
          
-            JMenuItem exit = new JMenuItem("Exit");
+            JMenuItem Exit = new JMenuItem("Exit");
             JMenuItem choose = new JMenuItem("Open Data File");
         
             fileMenu.add(choose);
-            fileMenu.add(exit);
+            fileMenu.add(Exit);
             
             this.add(fileMenu);
+            
+            Exit.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    // Exit the program
+                    Exit();
+                } 
+            });
             
         }
         
@@ -162,6 +169,11 @@ public class MainFrame extends JFrame
         //Set up the Parameter selection options
         datatypes.setLayout(new BoxLayout(datatypes, BoxLayout.Y_AXIS));
         datatypes.setBorder(dtBorder);
+        tair.setBackground(Color.gray);
+        ta9m.setBackground(Color.gray);
+        srad.setBackground(Color.gray);
+        wspd.setBackground(Color.gray);
+        pres.setBackground(Color.gray);
         datatypes.add(tair);
         datatypes.add(ta9m);
         datatypes.add(srad);
@@ -177,11 +189,14 @@ public class MainFrame extends JFrame
         stats.add(max);
         stats.add(min);
         stats.add(avg);
+        min.setBackground(Color.gray);
+        max.setBackground(Color.gray);
+        avg.setBackground(Color.gray);
         statTypes.add(min);
         statTypes.add(avg);
         statTypes.add(max);
         add(statTypes, BorderLayout.CENTER);
-        statTypes.setBackground(Color.GRAY);
+        statTypes.setBackground(Color.gray);
        // statTypes.setPreferredSize(new Dimension(50,50));
         
         //Set up the lower buttons: exit and calculate
