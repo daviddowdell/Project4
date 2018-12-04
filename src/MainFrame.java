@@ -159,11 +159,15 @@ public class MainFrame extends JFrame
         
         //Set up output text
         
-        table = makeTable(outputData, tableHeaders);
+        table = new OutputTable(outputData, tableHeaders);
+        table.setPreferredSize(new Dimension(600,400));
         JScrollPane sp = new JScrollPane(table);
-        textBox.add(sp);
-        add(textBox, BorderLayout.EAST);
-        textBox.setPreferredSize(new Dimension(600,400));
+        sp.setPreferredSize(new Dimension(600,400));
+        sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        //textBox.add(sp);
+        add(sp, BorderLayout.EAST);
+       // textBox.setPreferredSize(new Dimension(600,400));
         
         
         //Set up the Parameter selection options
@@ -197,7 +201,7 @@ public class MainFrame extends JFrame
         statTypes.add(max);
         add(statTypes, BorderLayout.CENTER);
         statTypes.setBackground(Color.gray);
-       // statTypes.setPreferredSize(new Dimension(50,50));
+        statTypes.setPreferredSize(new Dimension(50,50));
         
         //Set up the lower buttons: exit and calculate
         options.add(calc);
@@ -227,23 +231,7 @@ public class MainFrame extends JFrame
         dispose(); 
     }
     
-    /**This method makes a table, sometimes a new one */
-    protected JTable makeTable(Object[][] data, String[] headers)
-    {
-        JTable a = new JTable(data, headers);
-        ((DefaultTableCellRenderer)a.getTableHeader().getDefaultRenderer())
-        .setHorizontalAlignment(JLabel.LEFT);
-        a.setShowGrid(false);
-        a.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        a.getColumnModel().getColumn(0).setPreferredWidth(45);
-        a.getColumnModel().getColumn(1).setPreferredWidth(70);
-        a.getColumnModel().getColumn(2).setPreferredWidth(80);
-        a.getColumnModel().getColumn(3).setPreferredWidth(60);
-        a.getColumnModel().getColumn(4).setPreferredWidth(120);
-        a.getColumnModel().getColumn(5).setPreferredWidth(500);
-        a.setFillsViewportHeight(true);
-        return a;
-    }
+    
      
     
 }
