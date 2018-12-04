@@ -9,6 +9,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -29,7 +30,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  * @author David Dowdell
  *
  */
-public class MainFrame extends JFrame
+public class MainFrame extends JFrame implements ActionListener
 {
 
     /**
@@ -74,7 +75,7 @@ public class MainFrame extends JFrame
     /** Header for the whole thing */
     JLabel mainHeader = new JLabel();
     /** Table for station, parameter, statistics, value, reporting stations, and date */
-    JTable table;
+    OutputTable table;
     String[] tableHeaders = new String[] {"Station", "Parameter", "Statistics",
             "Value", "Reporting Stations", "Date"};
     
@@ -124,7 +125,7 @@ public class MainFrame extends JFrame
         
             fileMenu.add(choose);
             fileMenu.add(Exit);
-            
+            //Exit-option
             this.add(fileMenu);
             
             Exit.addActionListener(new ActionListener() {
@@ -132,6 +133,18 @@ public class MainFrame extends JFrame
                     // Exit the program
                     Exit();
                 } 
+            });
+            
+            //Open-file-option
+            choose.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    //Open the data folders
+                   JFileChooser fileChooser = new JFileChooser("C:\\Users\\dtd12\\eclipse-workspace\\Project4\\data"); 
+                   int k = fileChooser.showOpenDialog(null);
+                   if (k == JFileChooser.APPROVE_OPTION) {
+                       
+                   }
+                }
             });
             
         }
@@ -159,7 +172,7 @@ public class MainFrame extends JFrame
         
         //Set up output text
         
-        table = new OutputTable(outputData, tableHeaders);
+        table = new OutputTable(outputData);
         table.setPreferredSize(new Dimension(600,400));
         JScrollPane sp = new JScrollPane(table);
         sp.setPreferredSize(new Dimension(600,400));
@@ -222,6 +235,42 @@ public class MainFrame extends JFrame
                 Exit();
             } 
         });
+        //TAIR JButton:
+        tair.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                table.swapTair();
+               
+            } 
+        });
+      //TA9M JButton:
+        ta9m.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                table.swapTa9m();
+               
+            } 
+        });
+      //SRAD JButton:
+        srad.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                table.swapSrad();
+               
+            } 
+        });
+      //WSPD JButton:
+        tair.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                table.swapWSPD();
+               
+            } 
+        });
+      //PRES JButton:
+        tair.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                table.swapTair();
+               
+            } 
+        });
+       
     }
 
 
@@ -229,6 +278,14 @@ public class MainFrame extends JFrame
     protected void Exit()
     {
         dispose(); 
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        // TODO Auto-generated method stub
+        
     }
     
     
