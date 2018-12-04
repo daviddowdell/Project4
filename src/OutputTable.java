@@ -131,4 +131,18 @@ public class OutputTable extends JTable
         this.min = false;
     }
 
+
+
+    public MapData getDataSheet()
+    {
+        return dataSheet;
+    }
+
+
+
+    public void setDataSheet(MapData dataSheet)
+    {
+        this.dataSheet = dataSheet;
+    }
+
 }

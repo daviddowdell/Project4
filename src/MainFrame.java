@@ -47,6 +47,10 @@ public class MainFrame extends JFrame implements ActionListener
      * Panel for the left column of selectable data types
      */
     JPanel datatypes = new JPanel();
+    
+    /**String for the chosen filename*/
+    String fileName;
+    
     /**Title for the datatypes border*/
     TitledBorder dtBorder = new TitledBorder("Parameter");
     
@@ -142,7 +146,8 @@ public class MainFrame extends JFrame implements ActionListener
                    JFileChooser fileChooser = new JFileChooser("C:\\Users\\dtd12\\eclipse-workspace\\Project4\\data"); 
                    int k = fileChooser.showOpenDialog(null);
                    if (k == JFileChooser.APPROVE_OPTION) {
-                       
+                       fileName = fileChooser.getSelectedFile().getName();
+                       System.out.println(fileName);
                    }
                 }
             });
@@ -259,7 +264,7 @@ public class MainFrame extends JFrame implements ActionListener
       //WSPD JButton:
         tair.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                table.swapWSPD();
+                table.swapWspd();
                
             } 
         });
@@ -269,6 +274,24 @@ public class MainFrame extends JFrame implements ActionListener
                 table.swapTair();
                
             } 
+        });
+        //MAXIMUM JRadioButton
+        max.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                table.setMax();
+            }
+        });
+        //MINIMUM JRadioButton
+        min.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                table.setMin();
+            }
+        });
+        //Average JRadioButton
+        avg.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                table.setAvg();
+            }
         });
        
     }
