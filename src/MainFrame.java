@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -24,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * This is the main, entire frame of the gui
@@ -84,7 +86,7 @@ public class MainFrame extends JFrame implements ActionListener
             "Value", "Reporting Stations", "Date"};
     
     Object[][] outputData = {{"","","","","",""}} ;
-    
+    DefaultTableModel dtm = new DefaultTableModel();
             
     /** Selectable buttons for Parameter */
     JCheckBox wspd = new JCheckBox("WSPD");
@@ -120,9 +122,8 @@ public class MainFrame extends JFrame implements ActionListener
         protected FileMenuBar()
         {
             super();
-            File dataFolder = new File("C:\\Users\\dtd12\\eclipse-workspace\\Project4\\data");
-            File[] datafiles = dataFolder.listFiles();
-            
+           
+ 
          
             JMenuItem Exit = new JMenuItem("Exit");
             JMenuItem choose = new JMenuItem("Open Data File");
@@ -147,7 +148,15 @@ public class MainFrame extends JFrame implements ActionListener
                    int k = fileChooser.showOpenDialog(null);
                    if (k == JFileChooser.APPROVE_OPTION) {
                        fileName = fileChooser.getSelectedFile().getName();
-                       System.out.println(fileName);
+                       try
+                    {
+                        table.setDataSheet(new MapData(fileName, "data"));
+                    } catch (IOException e1)
+                    {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                      
                    }
                 }
             });
@@ -175,17 +184,12 @@ public class MainFrame extends JFrame implements ActionListener
         topHeading.setBackground(Color.LIGHT_GRAY);
         add(topHeading, BorderLayout.NORTH);
         
-        //Set up output text
-        
+        //Set up output text 
         table = new OutputTable(outputData);
-        table.setPreferredSize(new Dimension(600,400));
-        JScrollPane sp = new JScrollPane(table);
-        sp.setPreferredSize(new Dimension(600,400));
-        sp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        sp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-        //textBox.add(sp);
-        add(sp, BorderLayout.EAST);
-       // textBox.setPreferredSize(new Dimension(600,400));
+        
+       
+        add(table, BorderLayout.EAST);
+     
         
         
         //Set up the Parameter selection options
@@ -239,6 +243,12 @@ public class MainFrame extends JFrame implements ActionListener
             public void actionPerformed(ActionEvent e) {
                 Exit();
             } 
+        });
+        //Calculate JButton:
+        calc.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                calculate();
+            }
         });
         //TAIR JButton:
         tair.addActionListener(new ActionListener() {
@@ -303,6 +313,12 @@ public class MainFrame extends JFrame implements ActionListener
         dispose(); 
     }
 
+    /**This method calculates the data and displays it*/
+    protected void calculate()
+    {
+        table.showData(fileName);
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e)
@@ -310,6 +326,7 @@ public class MainFrame extends JFrame implements ActionListener
         // TODO Auto-generated method stub
         
     }
+   
     
     
      

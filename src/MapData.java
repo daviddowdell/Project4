@@ -75,7 +75,17 @@ public class MapData
         fileName = createFileName(year,month, day, hour, minute, directory);
  
     }
-    
+    public MapData(String filename, String directory)
+    {
+        fileName = directory + "//" + filename;
+        int year = Integer.parseInt(filename.substring(0, 4));
+        int month = Integer.parseInt(filename.substring(4,6));
+        int day = Integer.parseInt(filename.substring(6,8));
+        int hour = Integer.parseInt(filename.substring(8, 10));
+        int minute = Integer.parseInt(filename.substring(10,12));
+        
+        utcDateTime = new GregorianCalendar(year,month,day,hour,minute);
+    }
     /**
      * Creates a file name using the date with the format yyyyMMddHHmm.mdf
      * @return the file name
@@ -371,6 +381,21 @@ public class MapData
        }
        //out += "\r\n";
        return out;
+    }
+    /**
+     * This method returns an object array for the Maximum for the JTable in order:
+     * STID, parameter, statistic, value, #ofReportingStations, date
+     * @param stat
+     * @return
+     */
+    public Object[] getMax(String stat) //stat will be TAIR, WSPD, SRAD, etc.
+    {
+        Object[] a = {statistics.get(StatsType.MAXIMU).get(stat).getStid(),
+                stat, "MAXIMUM", statistics.get(StatsType.MAXIMU).get(stat).getValue(),
+                statistics.get(StatsType.MAXIMU).get(stat).getNumberOfReportingStations(),
+                statistics.get(StatsType.MAXIMU).get(stat).getUTCDateTimeString()};
+               
+        }
     }
     
  

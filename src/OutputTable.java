@@ -1,6 +1,11 @@
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.io.IOException;
+
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 public class OutputTable extends JTable
 
@@ -9,7 +14,9 @@ public class OutputTable extends JTable
             "Value", "Reporting Stations", "Date"};
     
    
-    
+    private int rows;
+    private Object[][] dataArray;
+  
     private boolean tair = false;
     private boolean ta9m = false;
     private boolean srad = false;
@@ -26,9 +33,14 @@ public class OutputTable extends JTable
      */
     private static final long serialVersionUID = 1L;
     
-    public OutputTable (Object[][] data)
+    public OutputTable (Object[][] a)
     {
-        super(data, headers);
+        super(a, headers);
+        dataArray = a;
+        this.setPreferredSize(new Dimension(600,400));
+        this.setLayout(new BorderLayout());
+        this.add(this.getTableHeader(), BorderLayout.PAGE_START);
+        
         ((DefaultTableCellRenderer)this.getTableHeader().getDefaultRenderer())
         .setHorizontalAlignment(JLabel.LEFT);
         setShowGrid(false);
@@ -40,6 +52,9 @@ public class OutputTable extends JTable
         getColumnModel().getColumn(4).setPreferredWidth(120);
         getColumnModel().getColumn(5).setPreferredWidth(120);
         setFillsViewportHeight(true);
+        rows = 0;
+       // tableModel = (DefaultTableModel) this.createDefaultDataModel();
+       
         
     }
     
@@ -140,9 +155,46 @@ public class OutputTable extends JTable
 
 
 
-    public void setDataSheet(MapData dataSheet)
+    public void setDataSheet(MapData dataSheet) throws IOException
     {
         this.dataSheet = dataSheet;
+        dataSheet.parseFile();
+        System.out.println(dataSheet.toString());
     }
 
+
+
+    public OutputTable showData(String fileName)
+    {
+       int r=0;
+       if (tair) {++r;}
+       if (ta9m) {++r;}
+       if (srad) {++r;}
+       if (wspd) {++r;}
+       if (pres) {++r;}
+       
+       Object[][] plus= new Object[r][6];
+       Object[] newRow = new Object[6];
+       if (max)
+       {
+           if (tair) {
+               newRow = {dataSheet.};
+           }
+       }
+       //TODO: add the info into the new []
+       
+       return OutputTable(this, plus); 
+    }
+
+
+
+    private OutputTable OutputTable(OutputTable outputTable, Object[][] plus)
+    {
+        //TODO: combine into new [] and new table
+        return null;
+    }
+
+
+
+   
 }
