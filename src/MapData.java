@@ -394,9 +394,42 @@ public class MapData
                 stat, "MAXIMUM", statistics.get(StatsType.MAXIMU).get(stat).getValue(),
                 statistics.get(StatsType.MAXIMU).get(stat).getNumberOfReportingStations(),
                 statistics.get(StatsType.MAXIMU).get(stat).getUTCDateTimeString()};
+        return a;
                
-        }
     }
+    
+    /**
+     * This method returns an object array for the MInimum for the JTable in order:
+     * STID, parameter, statistic, value, #ofReportingStations, date
+     * @param stat
+     * @return
+     */
+    public Object[] getMin(String stat) //stat will be TAIR, WSPD, SRAD, etc.
+    {
+        Object[] a = {statistics.get(StatsType.MINIMUM).get(stat).getStid(),
+                stat, "MINIMUM", statistics.get(StatsType.MINIMUM).get(stat).getValue(),
+                statistics.get(StatsType.MINIMUM).get(stat).getNumberOfReportingStations(),
+                statistics.get(StatsType.MINIMUM).get(stat).getUTCDateTimeString()};
+        return a;
+               
+    }
+    
+    /**
+     * This method returns an object array for the Average for the JTable in order:
+     * STID, parameter, statistic, value, #ofReportingStations, date
+     * @param stat
+     * @return
+     */
+    public Object[] getAvg(String stat) //stat will be TAIR, WSPD, SRAD, etc.
+    {
+        Object[] a = {statistics.get(StatsType.AVERAGE).get(stat).getStid(),
+                stat, "AVERAGE", statistics.get(StatsType.AVERAGE).get(stat).getValue(),
+                statistics.get(StatsType.AVERAGE).get(stat).getNumberOfReportingStations(),
+                statistics.get(StatsType.AVERAGE).get(stat).getUTCDateTimeString()};
+        return a;
+               
+    }
+    
     
  
 }

@@ -175,15 +175,79 @@ public class OutputTable extends JTable
        
        Object[][] plus= new Object[r][6];
        Object[] newRow = new Object[6];
+       int k = 0;
        if (max)
        {
            if (tair) {
-               newRow = {dataSheet.};
+               plus[k] = dataSheet.getMax("TAIR");
+               ++k;
+           }
+           if (ta9m) {
+               plus[k] = dataSheet.getMax("TA9M");
+               ++k;
+           }
+           if (srad) {
+               plus[k] = dataSheet.getMax("SRAD");
+               ++k;
+           }
+           if (wspd) {
+               plus[k] = dataSheet.getMax("WSPD");
+               ++k;
+           }
+           if (pres) {
+               plus[k] = dataSheet.getMax("PRES");
+               ++k;
+           }
+       }
+       else if (min)
+       {
+           if (tair) {
+               plus[k] = dataSheet.getMin("TAIR");
+               ++k;
+           }
+           if (ta9m) {
+               plus[k] = dataSheet.getMin("TA9M");
+               ++k;
+           }
+           if (srad) {
+               plus[k] = dataSheet.getMin("SRAD");
+               ++k;
+           }
+           if (wspd) {
+               plus[k] = dataSheet.getMin("WSPD");
+               ++k;
+           }
+           if (pres) {
+               plus[k] = dataSheet.getMin("PRES");
+               ++k;
+           }
+       }
+       else if (avg)
+       {
+           if (tair) {
+               plus[k] = dataSheet.getAvg("TAIR");
+               ++k;
+           }
+           if (ta9m) {
+               plus[k] = dataSheet.getAvg("TA9M");
+               ++k;
+           }
+           if (srad) {
+               plus[k] = dataSheet.getAvg("SRAD");
+               ++k;
+           }
+           if (wspd) {
+               plus[k] = dataSheet.getAvg("WSPD");
+               ++k;
+           }
+           if (pres) {
+               plus[k] = dataSheet.getAvg("PRES");
+               ++k;
            }
        }
        //TODO: add the info into the new []
        
-       return OutputTable(this, plus); 
+     
     }
 
 
