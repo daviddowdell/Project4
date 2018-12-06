@@ -188,7 +188,8 @@ public class MapData
                 
                 line = br.readLine();
             }     
-            numberOfStations = new Integer(counter);  
+            numberOfStations = new Integer(counter); 
+            br.close();
             //Copy arraylists into the desired storage, after initializing
             dataCatalog = new HashMap<String, ArrayList<Observation>>();
             

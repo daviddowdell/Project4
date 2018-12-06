@@ -3,7 +3,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
+
 import java.io.IOException;
 
 import javax.swing.Box;
@@ -19,14 +19,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -68,10 +65,7 @@ public class MainFrame extends JFrame implements ActionListener
     /**Title for the statTypes border*/
     TitledBorder stBorder = new TitledBorder("Statistics");
     
-    /**
-     * Panel for the text box
-     */
-    JPanel textBox = new JPanel();
+    
     /** Group of Buttons for selecting statistic type */
     ButtonGroup stats = new ButtonGroup();
     /** The button to run calculations */
@@ -85,16 +79,11 @@ public class MainFrame extends JFrame implements ActionListener
     /** Table for station, parameter, statistics, value, reporting stations, and date */
     OutputTable table;
     JScrollPane sp;
-    String[] tableHeaders = new String[] {"Station", "Parameter", "Statistics",
-            "Value", "Reporting Stations", "Date"};
     
-    Object[][] outputData = {{"a","","","","","d"}} ;
-    Object[][] outputData2 = {{"a","2","","","","d"}} ;
-    String[] headers = new String[] {"Station", "Parameter", "Statistics",
-            "Value", "Reporting Stations", "Date"};
+    /** Table model for creation of the table*/
     DefaultTableModel dtm = new DefaultTableModel();
             
-    /** Selectable buttons for Parameter */
+    /** JCheckBoxes for Parameter */
     JCheckBox wspd = new JCheckBox("WSPD");
     JCheckBox pres = new JCheckBox("PRES");
     JCheckBox srad = new JCheckBox("SRAD");
@@ -172,7 +161,9 @@ public class MainFrame extends JFrame implements ActionListener
     }
     
     
-    
+    /**
+     * Constructor for the entire class
+     */
     public MainFrame()
     {
         
@@ -349,7 +340,7 @@ public class MainFrame extends JFrame implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        // TODO Auto-generated method stub
+        // This is required to exist, but is not used.
         
     }
    
