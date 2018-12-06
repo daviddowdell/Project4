@@ -1,4 +1,4 @@
-import java.awt.BorderLayout;
+
 import java.awt.Dimension;
 import java.io.IOException;
 
@@ -6,17 +6,24 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
+/**
+ * This class is the table to hold all the data and show it
+ * @author dtd12
+ *
+ */
 public class OutputTable extends JTable
 
 {
+    
+    
+    /** The headers for the table*/ 
     private static final String[] headers = new String[] {"Station", "Parameter", "Statistics",
             "Value", "Reporting Stations", "Date"};
     
-   
-    private int rows;
-    private Object[][] dataArray;
+    /** The DefaultTableModel for the JTable*/
+    private DefaultTableModel model;
   
+    /**Settings for all the selectable buttons */
     private boolean tair = false;
     private boolean ta9m = false;
     private boolean srad = false;
@@ -26,25 +33,35 @@ public class OutputTable extends JTable
     private boolean max = false;
     private boolean avg = false;
     
+    /**The data, based on the chosen file*/
     private MapData dataSheet;
 
     /**
-     * 
+     * Default ID
      */
     private static final long serialVersionUID = 1L;
     
-    public OutputTable (Object[][] a)
+    /**
+     * Constructor for the table
+     * @param a
+     */
+    public OutputTable (DefaultTableModel a)
     {
-        super(a, headers);
-        dataArray = a;
-        this.setPreferredSize(new Dimension(600,400));
-        this.setLayout(new BorderLayout());
-        this.add(this.getTableHeader(), BorderLayout.PAGE_START);
+        super(a);
+        model = a;
         
+        //ALl the size-formatting and header-labeling
+        this.setPreferredSize(new Dimension(600,400));
         ((DefaultTableCellRenderer)this.getTableHeader().getDefaultRenderer())
         .setHorizontalAlignment(JLabel.LEFT);
         setShowGrid(false);
         setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        a.addColumn(headers[0]);
+        a.addColumn(headers[1]);
+        a.addColumn(headers[2]);
+        a.addColumn(headers[3]);
+        a.addColumn(headers[4]);
+        a.addColumn(headers[5]);
         getColumnModel().getColumn(0).setPreferredWidth(45);
         getColumnModel().getColumn(1).setPreferredWidth(70);
         getColumnModel().getColumn(2).setPreferredWidth(80);
@@ -52,19 +69,23 @@ public class OutputTable extends JTable
         getColumnModel().getColumn(4).setPreferredWidth(120);
         getColumnModel().getColumn(5).setPreferredWidth(120);
         setFillsViewportHeight(true);
-        rows = 0;
-       // tableModel = (DefaultTableModel) this.createDefaultDataModel();
-       
-        
+        setRows(0);
     }
     
-    
+   
 
+    /**
+     * Getter for tair
+     * @return boolean
+     */
     public boolean isTair()
     {
         return tair;
     }
 
+    /**
+     * Represents the button-press, setting to true or false.
+     */
     public void swapTair()
     {
         this.tair = !tair;
@@ -75,6 +96,9 @@ public class OutputTable extends JTable
         return ta9m;
     }
 
+    /**
+     * Represents the button-press, setting to true or false.
+     */
     public void swapTa9m()
     {
         this.ta9m = !ta9m;
@@ -85,6 +109,9 @@ public class OutputTable extends JTable
         return srad;
     }
 
+    /**
+     * Represents the button-press, setting to true or false.
+     */
     public void swapSrad()
     {
         this.srad = !srad;
@@ -95,9 +122,13 @@ public class OutputTable extends JTable
         return wspd;
     }
 
+    /**
+     * Represents the button-press, setting to true or false.
+     */
     public void swapWspd()
     {
         this.wspd = !wspd;
+       
     }
 
     public boolean isPres()
@@ -105,6 +136,9 @@ public class OutputTable extends JTable
         return pres;
     }
 
+    /**
+     * Represents the button-press, setting to true or false.
+     */
     public void swapPres()
     {
         this.pres = !pres;
@@ -115,6 +149,9 @@ public class OutputTable extends JTable
         return min;
     }
 
+    /**
+     * Represents the button-press, setting to true or false.
+     */
     public void setMin()
     {
         this.min = true;
@@ -127,6 +164,9 @@ public class OutputTable extends JTable
         return max;
     }
 
+    /**
+     * Represents the button-press, setting to true or false.
+     */
     public void setMax()
     {
         this.max = true;
@@ -139,6 +179,9 @@ public class OutputTable extends JTable
         return avg;
     }
 
+    /**
+     * Represents the button-press, setting to true or false.
+     */
     public void setAvg()
     {
         this.avg = true;
@@ -163,39 +206,50 @@ public class OutputTable extends JTable
     }
 
 
-
-    public OutputTable showData(String fileName)
+    /**
+     * THis method makes a new Object[][] to hold the old and new data
+     * and then returns an OutputTable with all of it
+     * @return
+     */
+    public Object[][] showData()
     {
        int r=0;
+       
        if (tair) {++r;}
        if (ta9m) {++r;}
        if (srad) {++r;}
        if (wspd) {++r;}
        if (pres) {++r;}
        
+       
        Object[][] plus= new Object[r][6];
-       Object[] newRow = new Object[6];
+     
        int k = 0;
        if (max)
        {
            if (tair) {
                plus[k] = dataSheet.getMax("TAIR");
+               model.addRow(plus[k]);
                ++k;
            }
            if (ta9m) {
                plus[k] = dataSheet.getMax("TA9M");
+               model.addRow(plus[k]);               
                ++k;
            }
            if (srad) {
                plus[k] = dataSheet.getMax("SRAD");
+               model.addRow(plus[k]);               
                ++k;
            }
            if (wspd) {
                plus[k] = dataSheet.getMax("WSPD");
+               model.addRow(plus[k]);               
                ++k;
            }
            if (pres) {
                plus[k] = dataSheet.getMax("PRES");
+               model.addRow(plus[k]);               
                ++k;
            }
        }
@@ -203,22 +257,27 @@ public class OutputTable extends JTable
        {
            if (tair) {
                plus[k] = dataSheet.getMin("TAIR");
+               model.addRow(plus[k]);               
                ++k;
            }
            if (ta9m) {
                plus[k] = dataSheet.getMin("TA9M");
+               model.addRow(plus[k]);               
                ++k;
            }
            if (srad) {
                plus[k] = dataSheet.getMin("SRAD");
+               model.addRow(plus[k]);               
                ++k;
            }
            if (wspd) {
                plus[k] = dataSheet.getMin("WSPD");
+               model.addRow(plus[k]);               
                ++k;
            }
            if (pres) {
                plus[k] = dataSheet.getMin("PRES");
+               model.addRow(plus[k]);               
                ++k;
            }
        }
@@ -226,39 +285,51 @@ public class OutputTable extends JTable
        {
            if (tair) {
                plus[k] = dataSheet.getAvg("TAIR");
+               model.addRow(plus[k]);               
                ++k;
            }
            if (ta9m) {
                plus[k] = dataSheet.getAvg("TA9M");
+               model.addRow(plus[k]);               
                ++k;
            }
            if (srad) {
                plus[k] = dataSheet.getAvg("SRAD");
+               model.addRow(plus[k]);               
                ++k;
            }
            if (wspd) {
                plus[k] = dataSheet.getAvg("WSPD");
+               model.addRow(plus[k]);               
                ++k;
            }
            if (pres) {
                plus[k] = dataSheet.getAvg("PRES");
+               model.addRow(plus[k]);               
                ++k;
            }
+          
+           
        }
-       //TODO: add the info into the new []
        
-     
+       return plus;
     }
 
 
-
-    private OutputTable OutputTable(OutputTable outputTable, Object[][] plus)
+    public int getRows()
     {
-        //TODO: combine into new [] and new table
-        return null;
+        return rows;
     }
 
 
+    public void setRows(int rows)
+    {
+        this.rows = rows;
+    }
+
+
+
+  
 
    
 }

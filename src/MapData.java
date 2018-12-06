@@ -410,6 +410,7 @@ public class MapData
                 stat, "MINIMUM", statistics.get(StatsType.MINIMUM).get(stat).getValue(),
                 statistics.get(StatsType.MINIMUM).get(stat).getNumberOfReportingStations(),
                 statistics.get(StatsType.MINIMUM).get(stat).getUTCDateTimeString()};
+        
         return a;
                
     }

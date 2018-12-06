@@ -23,6 +23,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -82,10 +83,14 @@ public class MainFrame extends JFrame implements ActionListener
     JLabel mainHeader = new JLabel();
     /** Table for station, parameter, statistics, value, reporting stations, and date */
     OutputTable table;
+    JScrollPane sp;
     String[] tableHeaders = new String[] {"Station", "Parameter", "Statistics",
             "Value", "Reporting Stations", "Date"};
     
-    Object[][] outputData = {{"","","","","",""}} ;
+    Object[][] outputData = {{"a","","","","","d"}} ;
+    Object[][] outputData2 = {{"a","2","","","","d"}} ;
+    String[] headers = new String[] {"Station", "Parameter", "Statistics",
+            "Value", "Reporting Stations", "Date"};
     DefaultTableModel dtm = new DefaultTableModel();
             
     /** Selectable buttons for Parameter */
@@ -185,12 +190,15 @@ public class MainFrame extends JFrame implements ActionListener
         add(topHeading, BorderLayout.NORTH);
         
         //Set up output text 
-        table = new OutputTable(outputData);
+        table = new OutputTable(dtm, outputData);
+        sp = new JScrollPane(table);
+        sp.setPreferredSize(new Dimension(600,400));
+        sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        add(sp, BorderLayout.EAST);
+        
         
        
-        add(table, BorderLayout.EAST);
-     
-        
         
         //Set up the Parameter selection options
         datatypes.setLayout(new BoxLayout(datatypes, BoxLayout.Y_AXIS));
@@ -272,16 +280,16 @@ public class MainFrame extends JFrame implements ActionListener
             } 
         });
       //WSPD JButton:
-        tair.addActionListener(new ActionListener() {
+        wspd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 table.swapWspd();
                
             } 
         });
       //PRES JButton:
-        tair.addActionListener(new ActionListener() {
+        pres.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                table.swapTair();
+                table.swapPres();
                
             } 
         });
@@ -316,7 +324,7 @@ public class MainFrame extends JFrame implements ActionListener
     /**This method calculates the data and displays it*/
     protected void calculate()
     {
-        table.showData(fileName);
+        table.showData();
     }
 
 
