@@ -67,9 +67,9 @@ public class OutputTable extends JTable
         getColumnModel().getColumn(2).setPreferredWidth(80);
         getColumnModel().getColumn(3).setPreferredWidth(60);
         getColumnModel().getColumn(4).setPreferredWidth(120);
-        getColumnModel().getColumn(5).setPreferredWidth(120);
+        getColumnModel().getColumn(5).setPreferredWidth(140);
         setFillsViewportHeight(true);
-        setRows(0);
+     
     }
     
    
@@ -191,6 +191,10 @@ public class OutputTable extends JTable
 
 
 
+    /**
+     * Getter method for the datasheet
+     * @return
+     */
     public MapData getDataSheet()
     {
         return dataSheet;
@@ -198,6 +202,12 @@ public class OutputTable extends JTable
 
 
 
+    /**
+     * This method sets the datasheet. It is called when 
+     * a user selects a file
+     * @param dataSheet
+     * @throws IOException
+     */
     public void setDataSheet(MapData dataSheet) throws IOException
     {
         this.dataSheet = dataSheet;
@@ -313,18 +323,6 @@ public class OutputTable extends JTable
        }
        
        return plus;
-    }
-
-
-    public int getRows()
-    {
-        return rows;
-    }
-
-
-    public void setRows(int rows)
-    {
-        this.rows = rows;
     }
 
 

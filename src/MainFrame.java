@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -190,7 +191,7 @@ public class MainFrame extends JFrame implements ActionListener
         add(topHeading, BorderLayout.NORTH);
         
         //Set up output text 
-        table = new OutputTable(dtm, outputData);
+        table = new OutputTable(dtm);
         sp = new JScrollPane(table);
         sp.setPreferredSize(new Dimension(600,400));
         sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -208,11 +209,21 @@ public class MainFrame extends JFrame implements ActionListener
         srad.setBackground(Color.gray);
         wspd.setBackground(Color.gray);
         pres.setBackground(Color.gray);
+        datatypes.add(Box.createVerticalGlue());
         datatypes.add(tair);
+        datatypes.add(Box.createVerticalGlue());
+        datatypes.add(Box.createVerticalGlue());
         datatypes.add(ta9m);
+        datatypes.add(Box.createVerticalGlue());
+        datatypes.add(Box.createVerticalGlue());
         datatypes.add(srad);
+        datatypes.add(Box.createVerticalGlue());
+        datatypes.add(Box.createVerticalGlue());
         datatypes.add(wspd);
+        datatypes.add(Box.createVerticalGlue());
+        datatypes.add(Box.createVerticalGlue());
         datatypes.add(pres);
+        datatypes.add(Box.createVerticalGlue());
         add(datatypes, BorderLayout.WEST);
         datatypes.setPreferredSize(new Dimension(80,50));
         datatypes.setBackground(Color.gray);
@@ -226,12 +237,19 @@ public class MainFrame extends JFrame implements ActionListener
         min.setBackground(Color.gray);
         max.setBackground(Color.gray);
         avg.setBackground(Color.gray);
+        statTypes.add(Box.createVerticalGlue());
         statTypes.add(min);
+        statTypes.add(Box.createVerticalGlue());
+        statTypes.add(Box.createVerticalGlue());
         statTypes.add(avg);
+        statTypes.add(Box.createVerticalGlue());
+        statTypes.add(Box.createVerticalGlue());
         statTypes.add(max);
+        statTypes.add(Box.createVerticalGlue());
         add(statTypes, BorderLayout.CENTER);
         statTypes.setBackground(Color.gray);
         statTypes.setPreferredSize(new Dimension(50,50));
+        
         
         //Set up the lower buttons: exit and calculate
         options.add(calc);
